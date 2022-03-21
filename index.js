@@ -105,7 +105,7 @@ app.get("/api/novel/search", async (req, res) => {
     res.json(novels);
   } catch (err) {
     console.log(err);
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: err });
   }
 });
 
@@ -115,7 +115,7 @@ app.get("/api/novel/detail/:ncode", async (req, res) => {
     res.json(novel);
   } catch (err) {
     console.log(err);
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: err });
   }
 });
 
@@ -128,6 +128,6 @@ app.get("/api/novel/detail/:ncode/:chapter", async (req, res) => {
     res.json(chapterDetail);
   } catch (err) {
     console.log(err);
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: err });
   }
 });
