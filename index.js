@@ -3,53 +3,50 @@ const express = require("express");
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-
 const app = express();
 
 app.listen(PORT, () => console.log("server listening at port 5000"));
 
 const searchNovel = async (p = 1, word = "") => {
-  const response = await axios.get(
-    "https://noc.syosetu.com/search/search/?word=",
-    {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0",
-        Cookie: "over18=yes;",
-      },
-      params: { p, word },
-    }
-  );
-  const $ = cheerio.load(response.data);
-  let novels = [];
-  $("div.searchkekka_box").each((i, el) => {
-    const text = $(el).text();
-    const title = $(el).find("a.tl").text();
-    const author = text.substring(
-      text.indexOf("作者：") + 3,
-      text.lastIndexOf("小説情報") - 1
-    );
-    const rawTags = text.substring(
-      text.indexOf("キーワード") + 6,
-      text.lastIndexOf("最終掲載")
-    );
-    const tags = rawTags.trim().split("\n");
-    const nCode = text
-      .substring(text.indexOf("Nコード") + 5, text.lastIndexOf("読了時間"))
-      .trim();
-    const description = $(el).find("td.ex").text();
-    const chapter = $(el).find("td.left").text();
-    const novel = {
-      nCode,
-      title,
-      author,
-      description,
-      chapter,
-      tags,
-    };
-    novels.push(novel);
+  const response = await axios("https://www.google.com", {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0",
+      Cookie: "over18=yes;",
+    },
+    // params: { p, word },
   });
-  return novels;
+  return response.data;
+  // const $ = cheerio.load(response.data);
+  // let novels = [];
+  // $("div.searchkekka_box").each((i, el) => {
+  //   const text = $(el).text();
+  //   const title = $(el).find("a.tl").text();
+  //   const author = text.substring(
+  //     text.indexOf("作者：") + 3,
+  //     text.lastIndexOf("小説情報") - 1
+  //   );
+  //   const rawTags = text.substring(
+  //     text.indexOf("キーワード") + 6,
+  //     text.lastIndexOf("最終掲載")
+  //   );
+  //   const tags = rawTags.trim().split("\n");
+  //   const nCode = text
+  //     .substring(text.indexOf("Nコード") + 5, text.lastIndexOf("読了時間"))
+  //     .trim();
+  //   const description = $(el).find("td.ex").text();
+  //   const chapter = $(el).find("td.left").text();
+  //   const novel = {
+  //     nCode,
+  //     title,
+  //     author,
+  //     description,
+  //     chapter,
+  //     tags,
+  //   };
+  //   novels.push(novel);
+  // });
+  // return novels;
 };
 
 const getNovelDetail = async (ncode) => {
