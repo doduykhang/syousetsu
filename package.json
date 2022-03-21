@@ -1,0 +1,19 @@
+{
+  "name": "syousetsu_server",
+  "version": "1.0.0",
+  "description": "a web scrapper for syousetsu website",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
